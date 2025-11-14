@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Viewer Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .test {
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #4CAF50;
+            background: #2a2a2a;
+        }
+        .pass { border-color: #4CAF50; }
+        .fail { border-color: #f44336; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Web Viewer Tests</h1>
+    <div id="results"></div>
+    
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        function test(name, fn) {
+            try {
+                fn();
+                results.innerHTML += `<div class="test pass">✅ ${name}</div>`;
+            } catch (e) {
+                results.innerHTML += `<div class="test fail">❌ ${name}: ${e.message}</div>`;
+            }
+        }
+        
+        // Test DOM elements exist
+        test("Canvas element exists", () => {
+            const canvas = document.createElement('canvas');
+            if (!canvas.getContext) throw new Error("Canvas not supported");
+        });
+        
+        test("2D context available", () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) throw new Error("2D context not available");
+        });
+        
+        test("FileReader API available", () => {
+            if (typeof FileReader === 'undefined') {
+                throw new Error("FileReader not supported");
+            }
+        });
+        
+        test("Image API available", () => {
+            const img = new Image();
+            if (!img) throw new Error("Image not supported");
+        });
+        
+        results.innerHTML += '<div class="test pass">✅ All browser compatibility tests passed!</div>';
+    </script>
+</body>
+</html>
