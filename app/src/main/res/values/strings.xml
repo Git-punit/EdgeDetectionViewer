@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Detection Viewer</string>
+    <string name="toggle_processing">Toggle Processing</string>
+    <string name="save_frame">Save Frame</string>
+    <string name="fps_label">FPS: %1$.1f</string>
+    <string name="resolution_label">Resolution: %1$dx%2$d</string>
+</resources>
