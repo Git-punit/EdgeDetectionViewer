@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge Detection Viewer - Web Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎥 Edge Detection Viewer</h1>
+            <p class="subtitle">Real-time OpenCV Edge Detection - Web Interface</p>
+        </header>
+
+        <main>
+            <div class="viewer-section">
+                <div class="canvas-container">
+                    <canvas id="frameCanvas" width="640" height="480"></canvas>
+                </div>
+                
+                <div class="stats-panel" id="stats">
+                    <p class="no-data">No frame loaded</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="demoButton" class="btn btn-primary">
+                    Load Demo Frame
+                </button>
+                
+                <label for="fileInput" class="btn btn-secondary">
+                    Upload Frame
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </label>
+                
+                <button id="clearButton" class="btn btn-danger">
+                    Clear
+                </button>
+            </div>
+
+            <div class="info-panel">
+                <h3>📋 Instructions</h3>
+                <ul>
+                    <li><strong>Demo:</strong> Click "Load Demo Frame" to see a sample edge-detected pattern</li>
+                    <li><strong>Upload:</strong> Click "Upload Frame" to load a processed frame from the Android app</li>
+                    <li><strong>Stats:</strong> Frame statistics (resolution, FPS) appear in the panel on the right</li>
+                </ul>
+
+                <h3>🏗️ Architecture</h3>
+                <div class="architecture">
+                    <div class="arch-step">
+                        <strong>1. Android Camera</strong>
+                        <p>Camera2 API captures frames via TextureView/SurfaceTexture</p>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-step">
+                        <strong>2. JNI Bridge</strong>
+                        <p>Java passes frame data to C++ native code</p>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-step">
+                        <strong>3. OpenCV Processing</strong>
+                        <p>C++ applies Canny edge detection or grayscale filter</p>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-step">
+                        <strong>4. OpenGL Rendering</strong>
+                        <p>Processed frame rendered as texture using OpenGL ES 2.0</p>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-step">
+                        <strong>5. Web Viewer</strong>
+                        <p>TypeScript displays exported frames with stats</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built with TypeScript + HTML5 Canvas | Android NDK + OpenCV + OpenGL ES</p>
+        </footer>
+    </div>
+
+    <script type="module" src="dist/viewer.js"></script>
+</body>
+</html>
